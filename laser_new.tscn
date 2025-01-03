@@ -1,0 +1,59 @@
+[gd_scene load_steps=10 format=3 uid="uid://bmht7nioxcqhu"]
+
+[ext_resource type="Texture2D" uid="uid://cba4qquyp2utx" path="res://shot/shot1_1.png" id="1_bljxx"]
+[ext_resource type="Script" path="res://laser_new.gd" id="1_oriqq"]
+[ext_resource type="Texture2D" uid="uid://bqp637mjj7dpm" path="res://shot/shot1_2.png" id="2_3tvky"]
+[ext_resource type="Texture2D" uid="uid://w8w4dhi5so8v" path="res://shot/shot1_3.png" id="3_n0nvr"]
+[ext_resource type="Texture2D" uid="uid://cm2pgnwnim64i" path="res://shot/shot1_4.png" id="4_n7ndm"]
+[ext_resource type="AudioStream" uid="uid://bus06rd7u1cmf" path="res://assets/sound/asteroid_destroy.mp3" id="6_tqsba"]
+[ext_resource type="PackedScene" uid="uid://b27ur4dmes0yy" path="res://cpu_particles_2d.tscn" id="7_nds5a"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kl8t1"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mjcpb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bljxx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_3tvky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_n0nvr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_n7ndm")
+}],
+"loop": false,
+"name": &"fire",
+"speed": 15.0
+}]
+
+[node name="Laser_new" type="Area2D" groups=["lasers"]]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource("1_oriqq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 7
+visibility_layer = 7
+rotation = -0.00424305
+shape = SubResource("CapsuleShape2D_kl8t1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = -1.5708
+sprite_frames = SubResource("SpriteFrames_mjcpb")
+animation = &"fire"
+frame = 3
+frame_progress = 1.0
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_tqsba")
+
+[node name="explosion_particles" parent="." instance=ExtResource("7_nds5a")]
+visible = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,0 +1,139 @@
+[gd_scene load_steps=17 format=3 uid="uid://d2k4pa50jyk6c"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_818dx"]
+[ext_resource type="Texture2D" uid="uid://dhlv5nvqn63q3" path="res://spaceship/smallfighter0006.png" id="1_beik6"]
+[ext_resource type="PackedScene" uid="uid://do45ie5ikl0yd" path="res://asteroid_2.tscn" id="2_pdaru"]
+[ext_resource type="Texture2D" uid="uid://b3xoyxphhdpal" path="res://spaceship/smallfighter0001.png" id="2_vet8y"]
+[ext_resource type="AudioStream" uid="uid://dnt58pc41tsfj" path="res://assets/sound/main_theme_ambient_space.mp3" id="3_ejd54"]
+[ext_resource type="Script" path="res://CharacterBody2D.gd" id="3_swrq1"]
+[ext_resource type="PackedScene" uid="uid://bmht7nioxcqhu" path="res://laser_new.tscn" id="4_6o7ow"]
+[ext_resource type="Texture2D" uid="uid://lli85e2lqfeh" path="res://spaceship/blueships1.png" id="5_nb7sv"]
+[ext_resource type="PackedScene" uid="uid://ch6em3vyfysfq" path="res://background/parallax_background.tscn" id="8_u8blf"]
+[ext_resource type="AudioStream" uid="uid://bbbbq520lhwv3" path="res://assets/sound/laser_shoot.mp3" id="8_yn1dv"]
+[ext_resource type="AudioStream" uid="uid://byl17wx5thaps" path="res://assets/sound/laser_empty.mp3" id="9_5e6nc"]
+[ext_resource type="Texture2D" uid="uid://cni4j21gw5bla" path="res://spaceship/smallfighter0011.png" id="12_el6m2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cyyvq"]
+radius = 29.0
+height = 150.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3lkte"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_beik6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vet8y")
+}],
+"loop": true,
+"name": &"spaceleft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_el6m2")
+}],
+"loop": true,
+"name": &"spaceright",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8gey2"]
+size = Vector2(64, 800)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_84dka"]
+size = Vector2(1280, 96)
+
+[node name="main" type="Node2D"]
+position = Vector2(639, 719)
+script = ExtResource("1_818dx")
+Asteroid = ExtResource("2_pdaru")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("3_swrq1")
+Fire = ExtResource("4_6o7ow")
+
+[node name="Spaceship" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(1, 25)
+rotation = -1.57079
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_nb7sv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_cyyvq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+visible = false
+position = Vector2(1, 1)
+sprite_frames = SubResource("SpriteFrames_3lkte")
+animation = &"spaceleft"
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+stream = ExtResource("8_yn1dv")
+
+[node name="LaserEmpty" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+stream = ExtResource("9_5e6nc")
+
+[node name="MainTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ejd54")
+autoplay = true
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+autostart = true
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("8_u8blf")]
+
+[node name="ShootCount" type="Label" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 541.0
+offset_top = 38.0
+offset_right = 599.0
+offset_bottom = 61.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Shoots:"
+vertical_alignment = 1
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+light_mask = 3
+visibility_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(-671, -319)
+shape = SubResource("RectangleShape2D_8gey2")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+light_mask = 3
+visibility_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(673, -319)
+shape = SubResource("RectangleShape2D_8gey2")
+
+[node name="Bottom" type="StaticBody2D" parent="."]
+light_mask = 3
+visibility_layer = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(1, 129)
+shape = SubResource("RectangleShape2D_84dka")
+debug_color = Color(0.602068, 0.0553828, 0, 0.42)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

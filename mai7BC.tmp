@@ -1,0 +1,76 @@
+[gd_scene load_steps=15 format=3 uid="uid://d2k4pa50jyk6c"]
+
+[ext_resource type="Texture2D" uid="uid://dhlv5nvqn63q3" path="res://spaceship/smallfighter0006.png" id="1_beik6"]
+[ext_resource type="Script" path="res://spaceship.gd" id="1_mgta8"]
+[ext_resource type="Texture2D" uid="uid://b3xoyxphhdpal" path="res://spaceship/smallfighter0001.png" id="2_vet8y"]
+[ext_resource type="Texture2D" uid="uid://c4ik3u8jp4u2h" path="res://spaceship/smallfighter0002.png" id="3_nwbbp"]
+[ext_resource type="Texture2D" uid="uid://oova4w377153" path="res://spaceship/smallfighter0003.png" id="4_tult7"]
+[ext_resource type="Texture2D" uid="uid://b40v2vycevoxk" path="res://spaceship/smallfighter0004.png" id="5_5dadw"]
+[ext_resource type="Texture2D" uid="uid://8r80pcsadd0e" path="res://spaceship/smallfighter0005.png" id="6_vjrg7"]
+[ext_resource type="Texture2D" uid="uid://cbr4hrirus5ug" path="res://spaceship/smallfighter0007.png" id="8_b73tu"]
+[ext_resource type="Texture2D" uid="uid://t8b5isikcnn5" path="res://spaceship/smallfighter0008.png" id="9_ywx4a"]
+[ext_resource type="Texture2D" uid="uid://ckq0vnotq716o" path="res://spaceship/smallfighter0009.png" id="10_tac2m"]
+[ext_resource type="Texture2D" uid="uid://dhcqbd52s2yqf" path="res://spaceship/smallfighter0010.png" id="11_qs776"]
+[ext_resource type="Texture2D" uid="uid://cni4j21gw5bla" path="res://spaceship/smallfighter0011.png" id="12_el6m2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cyyvq"]
+radius = 29.0
+height = 150.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3lkte"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vet8y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nwbbp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tult7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5dadw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_vjrg7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_beik6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_b73tu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ywx4a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_tac2m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_qs776")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_el6m2")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="main" type="Node2D"]
+position = Vector2(639, 719)
+
+[node name="spaceship" type="Area2D" parent="."]
+script = ExtResource("1_mgta8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
+shape = SubResource("CapsuleShape2D_cyyvq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="spaceship"]
+sprite_frames = SubResource("SpriteFrames_3lkte")
+animation = &"idle"
+frame = 8
+frame_progress = 0.819088
+
+[connection signal="animation_finished" from="spaceship/AnimatedSprite2D" to="spaceship" method="_on_animated_sprite_2d_animation_finished"]

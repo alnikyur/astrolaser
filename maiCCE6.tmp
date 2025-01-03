@@ -1,0 +1,67 @@
+[gd_scene load_steps=11 format=3 uid="uid://d2k4pa50jyk6c"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_818dx"]
+[ext_resource type="Texture2D" uid="uid://dhlv5nvqn63q3" path="res://spaceship/smallfighter0006.png" id="1_beik6"]
+[ext_resource type="Script" path="res://spaceship.gd" id="1_mgta8"]
+[ext_resource type="PackedScene" uid="uid://b786kxcdjn72j" path="res://laser.tscn" id="2_fuqje"]
+[ext_resource type="PackedScene" uid="uid://do45ie5ikl0yd" path="res://asteroid_2.tscn" id="2_pdaru"]
+[ext_resource type="Texture2D" uid="uid://b3xoyxphhdpal" path="res://spaceship/smallfighter0001.png" id="2_vet8y"]
+[ext_resource type="PackedScene" uid="uid://ch6em3vyfysfq" path="res://background/parallax_background.tscn" id="8_u8blf"]
+[ext_resource type="Texture2D" uid="uid://cni4j21gw5bla" path="res://spaceship/smallfighter0011.png" id="12_el6m2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cyyvq"]
+radius = 29.0
+height = 150.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3lkte"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_beik6")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vet8y")
+}],
+"loop": true,
+"name": &"spaceleft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_el6m2")
+}],
+"loop": true,
+"name": &"spaceright",
+"speed": 5.0
+}]
+
+[node name="main" type="Node2D"]
+position = Vector2(639, 719)
+script = ExtResource("1_818dx")
+Asteroid = ExtResource("2_pdaru")
+
+[node name="spaceship" type="Area2D" parent="."]
+script = ExtResource("1_mgta8")
+Fire = ExtResource("2_fuqje")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="spaceship"]
+shape = SubResource("CapsuleShape2D_cyyvq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="spaceship"]
+sprite_frames = SubResource("SpriteFrames_3lkte")
+animation = &"spaceleft"
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.1
+autostart = true
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("8_u8blf")]
+
+[connection signal="body_entered" from="spaceship" to="." method="_on_spaceship_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
