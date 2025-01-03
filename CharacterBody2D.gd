@@ -15,13 +15,13 @@ func _ready():
 
 	# Подключаемся к сигналу добавления узлов в дерево
 	get_tree().connect("node_added", Callable (self, "_on_node_added"))
-	print("Listening for new nodes...")
+	#print("Listening for new nodes...")
 
 func _on_node_added(node):
 	# Проверяем, является ли добавленный узел астероидом
 	if node.is_in_group("asteroids"):
 		node.connect("asteroid_destroyed", Callable (self, "add_shots_on_asteroid_destruction"))
-		print("Connected asteroid: ", node.name)
+		#print("Connected asteroid: ", node.name)
 
 func _process(delta):
 	if Input.is_action_pressed("ui_left"):

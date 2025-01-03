@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d2k4pa50jyk6c"]
+[gd_scene load_steps=19 format=3 uid="uid://d2k4pa50jyk6c"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_818dx"]
 [ext_resource type="Texture2D" uid="uid://dhlv5nvqn63q3" path="res://spaceship/smallfighter0006.png" id="1_beik6"]
@@ -12,6 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://bbbbq520lhwv3" path="res://assets/sound/laser_shoot.mp3" id="8_yn1dv"]
 [ext_resource type="AudioStream" uid="uid://byl17wx5thaps" path="res://assets/sound/laser_empty.mp3" id="9_5e6nc"]
 [ext_resource type="Texture2D" uid="uid://cni4j21gw5bla" path="res://spaceship/smallfighter0011.png" id="12_el6m2"]
+[ext_resource type="Script" path="res://AsteroidCatcher.gd" id="13_afxbi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cyyvq"]
 radius = 29.0
@@ -50,12 +51,17 @@ size = Vector2(64, 800)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84dka"]
 size = Vector2(1280, 96)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w0mee"]
+size = Vector2(1280, 32)
+
 [node name="main" type="Node2D"]
 position = Vector2(639, 719)
 script = ExtResource("1_818dx")
 Asteroid = ExtResource("2_pdaru")
 
 [node name="Spaceship" type="CharacterBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("3_swrq1")
 Fire = ExtResource("4_rgdsj")
 
@@ -106,34 +112,39 @@ text = "Shoots:"
 vertical_alignment = 1
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
-light_mask = 3
-visibility_layer = 3
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
-light_mask = 3
-visibility_layer = 3
 position = Vector2(-671, -319)
 shape = SubResource("RectangleShape2D_8gey2")
 
 [node name="RightWall" type="StaticBody2D" parent="."]
-light_mask = 3
-visibility_layer = 3
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
-light_mask = 3
-visibility_layer = 3
 position = Vector2(673, -319)
 shape = SubResource("RectangleShape2D_8gey2")
 
 [node name="Bottom" type="StaticBody2D" parent="."]
-light_mask = 3
-visibility_layer = 3
+light_mask = 0
+visibility_layer = 0
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
-light_mask = 3
-visibility_layer = 3
 position = Vector2(1, 129)
 shape = SubResource("RectangleShape2D_84dka")
 debug_color = Color(0.602068, 0.0553828, 0, 0.42)
 
+[node name="AsteroidCatcher" type="Area2D" parent="."]
+script = ExtResource("13_afxbi")
+game_manager = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidCatcher"]
+position = Vector2(1, 97)
+shape = SubResource("RectangleShape2D_w0mee")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="AsteroidCatcher" to="AsteroidCatcher" method="_on_body_entered"]

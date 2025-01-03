@@ -8,7 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://pagydlgvof65" path="res://assets/sound/explosion.mp3" id="6_354sn"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5xxn3"]
-height = 64.0
+radius = 5.0
+height = 48.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4kgpi"]
 animations = [{
@@ -37,18 +38,14 @@ animations = [{
 }]
 
 [node name="laser" type="RigidBody2D" groups=["lasers"]]
-collision_layer = 4
-collision_mask = 4
 gravity_scale = -2.0
 script = ExtResource("1_dhwmx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-light_mask = 4
-visibility_layer = 4
+position = Vector2(0, 5)
 shape = SubResource("CapsuleShape2D_5xxn3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -1.90735e-06)
 rotation = -1.5708
 scale = Vector2(2.03293, 1.67004)
 sprite_frames = SubResource("SpriteFrames_4kgpi")
