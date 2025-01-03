@@ -4,3 +4,8 @@ res://asteroid_2.tscn
 res://background/parallax_background.tscn
 res://cpu_particles_2d.tscn
 res://asteroid_area_2d.tscn
+res://laser_new.gd
+res://asteroid_2.gd
+res://laser.tscn
+res://laser_test.gd
+res://CharacterBody2D.gd

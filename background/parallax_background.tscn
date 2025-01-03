@@ -1,17 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch6em3vyfysfq"]
+[gd_scene load_steps=6 format=3 uid="uid://ch6em3vyfysfq"]
 
 [ext_resource type="Script" path="res://background/parallax_background.gd" id="1_cbtvq"]
 [ext_resource type="Texture2D" uid="uid://ckmbwyk1dj68k" path="res://assets/background/Nebula Aqua-Pink.png" id="1_ku48i"]
 [ext_resource type="Texture2D" uid="uid://ramsvapvs175" path="res://assets/background/Stars Small_1.png" id="2_fbbtt"]
 [ext_resource type="Texture2D" uid="uid://dncu1gmqgu3fp" path="res://assets/background/Stars-Big_1_1_PC.png" id="3_pvh3m"]
+[ext_resource type="Texture2D" uid="uid://c82ex534ooq02" path="res://assets/background/Nebula Blue.png" id="5_3buri"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
 script = ExtResource("1_cbtvq")
 
 [node name="NebulaAqua-pink" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(640, 400)
 scale = Vector2(0.3125, 0.195313)
 texture = ExtResource("1_ku48i")
+
+[node name="NebulaBlue" type="Sprite2D" parent="."]
+position = Vector2(640, 400)
+scale = Vector2(0.3125, 0.195313)
+texture = ExtResource("5_3buri")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0.5, 0.5)
