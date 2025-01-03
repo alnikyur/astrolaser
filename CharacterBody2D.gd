@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 @export var Fire: PackedScene
 
 @onready var shoot = $Shoot
@@ -13,7 +12,16 @@ var speed = 10
 
 func _ready():
 	$AnimatedSprite2D.play("idle")
-	shoot_count.text = "Shots: %d" % max_fire_count
+
+	# Подключаемся к сигналу добавления узлов в дерево
+	get_tree().connect("node_added", Callable (self, "_on_node_added"))
+	print("Listening for new nodes...")
+
+func _on_node_added(node):
+	# Проверяем, является ли добавленный узел астероидом
+	if node.is_in_group("asteroids"):
+		node.connect("asteroid_destroyed", Callable (self, "add_shots_on_asteroid_destruction"))
+		print("Connected asteroid: ", node.name)
 
 func _process(delta):
 	if Input.is_action_pressed("ui_left"):
@@ -31,6 +39,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_select"):  # Предполагается, что 'ui_select' это пробел
 		fire()
 	move_and_slide()
+
 func fire():
 	if current_fire_count > 0:
 		current_fire_count -= 1  # Уменьшаем количество выстрелов
@@ -46,7 +55,7 @@ func fire():
 			fire_sprite.play("fire")
 	else:
 		print("No shots left!")
-		laser_empty.play()
+		laser_empty.play() 
 
 func update_shots_label():
 	shoot_count.text = "Shots: %d" % current_fire_count
