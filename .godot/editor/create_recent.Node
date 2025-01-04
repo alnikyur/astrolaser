@@ -1,4 +1,9 @@
+AnimationPlayer
 Label
+MarginContainer
+HBoxContainer
+Panel
+Control
 CollisionShape2D
 Area2D
 AudioStreamPlayer
@@ -8,7 +13,3 @@ Node2D
 StaticBody2D
 AudioStreamPlayer2D
 CPUParticles2D
-AnimatedSprite2D
-ParallaxLayer
-ParallaxBackground
-RigidBody2D
