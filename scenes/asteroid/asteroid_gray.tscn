@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddq64vinps4uh"]
+
+[ext_resource type="Script" path="res://scenes/asteroid/asteroid_gray.gd" id="1_61n28"]
+[ext_resource type="PackedScene" uid="uid://b27ur4dmes0yy" path="res://scenes/particles/cpu_particles_2d.tscn" id="2_ch8ed"]
+[ext_resource type="AudioStream" uid="uid://bus06rd7u1cmf" path="res://assets/sound/asteroid_destroy.mp3" id="3_vah6d"]
+[ext_resource type="Texture2D" uid="uid://dmbnv0t3j7v7y" path="res://assets/asteroids/aestroid_gray_particle.png" id="3_w85cp"]
+[ext_resource type="Texture2D" uid="uid://c6o86notgs1ee" path="res://assets/asteroids/aestroid_gray.png" id="4_bhb4b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x610v"]
+radius = 16.0
+
+[node name="Asteroid_2" type="RigidBody2D" groups=["asteroids"]]
+collision_mask = 0
+gravity_scale = 0.0
+continuous_cd = 1
+max_contacts_reported = 10
+contact_monitor = true
+script = ExtResource("1_61n28")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_x610v")
+
+[node name="explosion_particles" parent="." instance=ExtResource("2_ch8ed")]
+visible = false
+texture = ExtResource("3_w85cp")
+
+[node name="Explosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vah6d")
+
+[node name="AestroidGray" type="Sprite2D" parent="."]
+scale = Vector2(0.09375, 0.09375)
+texture = ExtResource("4_bhb4b")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+
+[editable path="explosion_particles"]
