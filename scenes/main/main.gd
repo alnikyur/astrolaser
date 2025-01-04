@@ -8,12 +8,20 @@ extends Node2D
 @export var asteroid_count: int = 1
 @export var asteroid_gray_count: int = 1
 
+@onready var description = $Description
+@onready var fade_in_out = $FadeInOut
+
+
 var score: int = 10
 
 func _ready():
 	randomize()
 	$Timer.wait_time = spawn_interval
 	$Timer.start()
+
+	fade_text_in()
+	await get_tree().create_timer(5.0).timeout
+	fade_text_out()
 
 func subtract_score(amount: int):
 	score -= amount
@@ -55,3 +63,8 @@ func _on_asteroid_catcher_body_entered(body):
 	else:
 		print("Collision detected, but no body found.")
 
+func fade_text_in():
+	fade_in_out.play("fadein")
+
+func fade_text_out():
+	fade_in_out.play("fadeout")

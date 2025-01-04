@@ -12,7 +12,7 @@ extends CharacterBody2D
 @export var max_speed: float = 500.0
 @export var friction: float = 600.0
 
-var max_fire_count = 50
+var max_fire_count = 100
 var current_fire_count = max_fire_count
 var current_score_count = 0
 
@@ -55,16 +55,64 @@ func _process(delta):
 
 func fire():
 	if current_fire_count > 0:
-		current_fire_count -= 1
+		var num_lasers = 1  # Количество лазеров по умолчанию
+		if current_score_count >= 50:
+			num_lasers = 3  # Центральный, левый и правый лазеры
+		elif current_score_count >= 20:
+			num_lasers = 2  # Левый и правый лазеры
+
+		current_fire_count -= num_lasers  # Уменьшаем количество выстрелов
 		update_shots_label()
+
 		print("Shots left: ", current_fire_count)
-		var fire = Fire.instantiate()
-		fire.position = position + Vector2(0, -80)
-		get_parent().add_child(fire)
+
+		# Центр
+		if num_lasers == 1 or num_lasers == 3:
+			var center_fire = Fire.instantiate()
+			center_fire.position = position + Vector2(0, -80)
+			get_parent().add_child(center_fire)
+
+		# Левый лазер
+		if num_lasers >= 2:
+			var left_fire = Fire.instantiate()
+			left_fire.position = position + Vector2(-20, -80)
+			get_parent().add_child(left_fire)
+
+		# Правый лазер
+		if num_lasers >= 2:
+			var right_fire = Fire.instantiate()
+			right_fire.position = position + Vector2(20, -80)
+			get_parent().add_child(right_fire)
+
+		# Звук выстрела
 		shoot.play()
 	else:
 		print("No shots left!")
 		laser_empty.play()
+
+
+#func fire():
+	#if current_fire_count > 0:
+		#current_fire_count -= 2  # Уменьшаем количество выстрелов на 2
+		#update_shots_label()
+		#print("Shots left: ", current_fire_count)
+#
+		## Создаём первый лазер (слева)
+		#var left_fire = Fire.instantiate()
+		#left_fire.position = position + Vector2(-20, -80)  # Смещение влево и вверх
+		#get_parent().add_child(left_fire)
+#
+		## Создаём второй лазер (справа)
+		#var right_fire = Fire.instantiate()
+		#right_fire.position = position + Vector2(20, -80)  # Смещение вправо и вверх
+		#get_parent().add_child(right_fire)
+#
+		## Проигрываем звук выстрела
+		#shoot.play()
+	#else:
+		#print("No shots left!")
+		#laser_empty.play()
+
 
 func update_shots_label():
 	shoot_count.text = "Shots: %d" % current_fire_count

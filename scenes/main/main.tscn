@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d2k4pa50jyk6c"]
+[gd_scene load_steps=24 format=3 uid="uid://d2k4pa50jyk6c"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_818dx"]
 [ext_resource type="Texture2D" uid="uid://dhlv5nvqn63q3" path="res://assets/spaceship/smallfighter0006.png" id="1_beik6"]
@@ -54,6 +54,99 @@ size = Vector2(1280, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w0mee"]
 size = Vector2(1280, 32)
+
+[sub_resource type="Animation" id="Animation_vd6br"]
+resource_name = "fadeout"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Description:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Double laser = 20 points
+Triple laser = 50 pooints"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5tn20"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Description:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Double laser = 20 points
+Triple laser = 50 pooints"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rd7fm"]
+resource_name = "fadein"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Description:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Double laser = 20 points
+Triple laser = 50 pooints"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Description:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3skar"]
+_data = {
+"RESET": SubResource("Animation_5tn20"),
+"fadein": SubResource("Animation_rd7fm"),
+"fadeout": SubResource("Animation_vd6br")
+}
 
 [node name="main" type="Node2D"]
 position = Vector2(639, 719)
@@ -154,6 +247,19 @@ game_manager = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidCatcher"]
 position = Vector2(1, 97)
 shape = SubResource("RectangleShape2D_w0mee")
+
+[node name="Description" type="Label" parent="."]
+offset_left = -95.0
+offset_top = -319.0
+offset_right = 91.0
+offset_bottom = -270.0
+text = "Double laser = 20 points
+Triple laser = 50 pooints"
+
+[node name="FadeInOut" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3skar")
+}
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="AsteroidCatcher" to="AsteroidCatcher" method="_on_body_entered"]
