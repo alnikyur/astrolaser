@@ -5,8 +5,8 @@ res://background/parallax_background.tscn
 res://cpu_particles_2d.tscn
 res://asteroid_area_2d.tscn
 res://laser.tscn
-res://asteroid_2.gd
-res://laser_new.gd
+res://asteroid_gray.tscn
 res://CharacterBody2D.gd
 res://main.gd
-res://AsteroidCatcher.gd
+res://asteroid_2.gd
+res://asteroid_gray.gd

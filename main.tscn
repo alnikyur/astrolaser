@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://d2k4pa50jyk6c"]
+[gd_scene load_steps=20 format=3 uid="uid://d2k4pa50jyk6c"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_818dx"]
 [ext_resource type="Texture2D" uid="uid://dhlv5nvqn63q3" path="res://spaceship/smallfighter0006.png" id="1_beik6"]
 [ext_resource type="PackedScene" uid="uid://do45ie5ikl0yd" path="res://asteroid_2.tscn" id="2_pdaru"]
 [ext_resource type="Texture2D" uid="uid://b3xoyxphhdpal" path="res://spaceship/smallfighter0001.png" id="2_vet8y"]
 [ext_resource type="AudioStream" uid="uid://dnt58pc41tsfj" path="res://assets/sound/main_theme_ambient_space.mp3" id="3_ejd54"]
+[ext_resource type="PackedScene" uid="uid://ddq64vinps4uh" path="res://asteroid_gray.tscn" id="3_q0303"]
 [ext_resource type="Script" path="res://CharacterBody2D.gd" id="3_swrq1"]
 [ext_resource type="PackedScene" uid="uid://b786kxcdjn72j" path="res://laser.tscn" id="4_rgdsj"]
 [ext_resource type="Texture2D" uid="uid://lli85e2lqfeh" path="res://spaceship/blueships1.png" id="5_nb7sv"]
@@ -58,6 +59,7 @@ size = Vector2(1280, 32)
 position = Vector2(639, 719)
 script = ExtResource("1_818dx")
 Asteroid = ExtResource("2_pdaru")
+AsteroidGray = ExtResource("3_q0303")
 
 [node name="Spaceship" type="CharacterBody2D" parent="."]
 collision_layer = 2
@@ -110,6 +112,13 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Shoots:"
 vertical_alignment = 1
+
+[node name="Score" type="Label" parent="."]
+offset_left = -615.0
+offset_top = 33.0
+offset_right = -575.0
+offset_bottom = 56.0
+text = "Score:"
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
 collision_layer = 2
