@@ -17,14 +17,9 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Prebuild.sh
-        run: bash .github/workflows/scripts/prebuild.sh
-
       - name: Build project
         run: |
-          echo $PATH
-          env
-          ls -la /usr/local/bin/godot
+          bash .github/workflows/scripts/prebuild.sh
           godot --headless --path . --export-release "Windows Desktop" game.exe
           zip astrolaser_x64_windows.zip game.exe game.pck
 
