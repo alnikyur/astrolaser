@@ -20,7 +20,7 @@ jobs:
       - name: Build project
         run: |
           bash .github/workflows/scripts/prebuild.sh
-          godot --headless --path . --export-release "Windows Desktop" game.exe
+          /usr/local/bin/godot --headless --path . --export-release "Windows Desktop" game.exe
           zip astrolaser_x64_windows.zip game.exe game.pck
 
       - name: Upload build artifact windows
@@ -30,7 +30,7 @@ jobs:
           path: astrolaser_x64_windows.zip
 
   release:
-    runs-on: godot
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: Download build artifact win
