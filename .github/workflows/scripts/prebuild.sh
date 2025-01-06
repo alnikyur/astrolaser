@@ -18,3 +18,4 @@ wget https://github.com/godotengine/godot-builds/releases/download/4.2-stable/Go
 unzip Godot_v4.2-stable_export_templates.tpz
 sudo mkdir -p ~/.local/share/godot/export_templates/4.2.stable/
 sudo cp -rv templates/* ~/.local/share/godot/export_templates/4.2.stable/
+sudo cp -rv templates/* /home/runner/.local/share/godot/export_templates/4.2.stable/
