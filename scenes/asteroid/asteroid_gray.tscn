@@ -26,6 +26,7 @@ texture = ExtResource("3_w85cp")
 
 [node name="Explosion" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_vah6d")
+volume_db = -15.0
 
 [node name="AestroidGray" type="Sprite2D" parent="."]
 scale = Vector2(0.09375, 0.09375)
