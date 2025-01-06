@@ -1,14 +1,9 @@
 name: Astrolaser builf and release
 
-#on:
-#  push:
-#    tags:
-#      - 'v*.*.*'
-
 on:
   push:
-    branches:
-      - feature/cicd
+    tags:
+      - 'v*.*.*'
 
 jobs:
   build:
