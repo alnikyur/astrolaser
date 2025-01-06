@@ -19,7 +19,6 @@ jobs:
 
       - name: Build project
         run: |
-          sudo -s
           bash .github/workflows/scripts/prebuild.sh
           /usr/local/bin/godot --headless --path . --export-release "Windows Desktop" game.exe
           zip astrolaser_x64_windows.zip game.exe game.pck
