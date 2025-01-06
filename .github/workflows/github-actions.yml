@@ -38,4 +38,9 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "astrolaser_x64_windows.zip,labyrintum_x64_linux.zip"
-          bodyFile: ".github/workflows/body.md"
+          body: |
+            # Astrolaser - Release Notes
+
+            ## Version: v0.0.5
+            
+            ### First game release
