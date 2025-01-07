@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d2k4pa50jyk6c"]
+[gd_scene load_steps=27 format=3 uid="uid://d2k4pa50jyk6c"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_818dx"]
 [ext_resource type="Texture2D" uid="uid://dhlv5nvqn63q3" path="res://assets/spaceship/smallfighter0006.png" id="1_beik6"]
@@ -14,10 +14,13 @@
 [ext_resource type="AudioStream" uid="uid://byl17wx5thaps" path="res://assets/sound/laser_empty.mp3" id="9_5e6nc"]
 [ext_resource type="Texture2D" uid="uid://cni4j21gw5bla" path="res://assets/spaceship/smallfighter0011.png" id="12_el6m2"]
 [ext_resource type="Script" path="res://scenes/asteroid_catcher/AsteroidCatcher.gd" id="13_afxbi"]
+[ext_resource type="PackedScene" uid="uid://reu8rod0cl6o" path="res://scenes/explosion/explosion_0.tscn" id="15_fhfm2"]
+[ext_resource type="FontFile" uid="uid://bdu0qimwbchhy" path="res://assets/fonts/Astron Boy Video.otf" id="16_jgx67"]
+[ext_resource type="FontFile" uid="uid://b13fn6ov06hds" path="res://assets/fonts/Astron Boy.otf" id="17_16qda"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cyyvq"]
-radius = 29.0
-height = 150.0
+radius = 32.0
+height = 98.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3lkte"]
 animations = [{
@@ -167,6 +170,7 @@ scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_nb7sv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Spaceship"]
+position = Vector2(1, 25)
 shape = SubResource("CapsuleShape2D_cyyvq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Spaceship"]
@@ -203,6 +207,8 @@ offset_right = 599.0
 offset_bottom = 61.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_fonts/font = ExtResource("17_16qda")
+theme_override_font_sizes/font_size = 20
 text = "Shoots:"
 vertical_alignment = 1
 
@@ -211,6 +217,8 @@ offset_left = -615.0
 offset_top = 33.0
 offset_right = -575.0
 offset_bottom = 56.0
+theme_override_fonts/font = ExtResource("17_16qda")
+theme_override_font_sizes/font_size = 20
 text = "Score:"
 
 [node name="LeftWall" type="StaticBody2D" parent="."]
@@ -242,6 +250,7 @@ debug_color = Color(0.602068, 0.0553828, 0, 0.42)
 
 [node name="AsteroidCatcher" type="Area2D" parent="."]
 script = ExtResource("13_afxbi")
+Explosion_0 = ExtResource("15_fhfm2")
 game_manager = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidCatcher"]
@@ -249,10 +258,12 @@ position = Vector2(1, 97)
 shape = SubResource("RectangleShape2D_w0mee")
 
 [node name="Description" type="Label" parent="."]
-offset_left = -95.0
-offset_top = -319.0
-offset_right = 91.0
-offset_bottom = -270.0
+offset_left = -135.0
+offset_top = -335.0
+offset_right = 136.0
+offset_bottom = -260.0
+theme_override_fonts/font = ExtResource("16_jgx67")
+theme_override_font_sizes/font_size = 30
 text = "Double laser = 20 points
 Triple laser = 50 pooints"
 
@@ -266,6 +277,7 @@ offset_left = 585.0
 offset_top = -711.0
 offset_right = 630.0
 offset_bottom = -688.0
+theme_override_fonts/font = ExtResource("17_16qda")
 text = "v0.0.7"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
