@@ -1,4 +1,4 @@
-# 🚀 Asteroid Blaster
+# 🚀 Astrolaser
 
 Asteroid Blaster is a fast-paced and addictive arcade game where your mission is to destroy as many asteroids as possible while managing your limited laser shots. Take control of your spaceship, aim, and blast your way through waves of space rocks! The game is free to play and available for download on GitHub.
 
