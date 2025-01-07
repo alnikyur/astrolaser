@@ -1,4 +1,4 @@
-name: Astrolaser builf and release
+name: Astrolaser build and release
 
 on:
   push:
