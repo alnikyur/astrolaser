@@ -66,63 +66,36 @@ func _process(delta):
 
 func fire():
 	if current_fire_count > 0:
-		var num_lasers = 1  # Количество лазеров по умолчанию
+		var num_lasers = 1
 		if current_score_count >= 50:
-			num_lasers = 3  # Центральный, левый и правый лазеры
+			num_lasers = 3
 		elif current_score_count >= 20:
-			num_lasers = 2  # Левый и правый лазеры
+			num_lasers = 2
 
-		current_fire_count -= num_lasers  # Уменьшаем количество выстрелов
+		current_fire_count -= num_lasers
 		update_shots_label()
 
 		print("Shots left: ", current_fire_count)
 
-		# Центр
 		if num_lasers == 1 or num_lasers == 3:
 			var center_fire = Fire.instantiate()
 			center_fire.position = position + Vector2(0, -80)
 			get_parent().add_child(center_fire)
 
-		# Левый лазер
 		if num_lasers >= 2:
 			var left_fire = Fire.instantiate()
 			left_fire.position = position + Vector2(-20, -80)
 			get_parent().add_child(left_fire)
 
-		# Правый лазер
 		if num_lasers >= 2:
 			var right_fire = Fire.instantiate()
 			right_fire.position = position + Vector2(20, -80)
 			get_parent().add_child(right_fire)
 
-		# Звук выстрела
 		shoot.play()
 	else:
 		print("No shots left!")
 		laser_empty.play()
-
-
-#func fire():
-	#if current_fire_count > 0:
-		#current_fire_count -= 2  # Уменьшаем количество выстрелов на 2
-		#update_shots_label()
-		#print("Shots left: ", current_fire_count)
-#
-		## Создаём первый лазер (слева)
-		#var left_fire = Fire.instantiate()
-		#left_fire.position = position + Vector2(-20, -80)  # Смещение влево и вверх
-		#get_parent().add_child(left_fire)
-#
-		## Создаём второй лазер (справа)
-		#var right_fire = Fire.instantiate()
-		#right_fire.position = position + Vector2(20, -80)  # Смещение вправо и вверх
-		#get_parent().add_child(right_fire)
-#
-		## Проигрываем звук выстрела
-		#shoot.play()
-	#else:
-		#print("No shots left!")
-		#laser_empty.play()
 
 
 func update_shots_label():
