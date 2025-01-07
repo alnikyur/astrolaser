@@ -41,7 +41,8 @@ jobs:
           body: |
             # Astrolaser - Release Notes
   
-            ## Version: v0.0.7
+            ## Version: v0.1.0
   
             ### Minor changes
-            - Add joystick support
+            - Add fonts
+            - Add asteroid explosion

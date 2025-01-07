@@ -278,7 +278,7 @@ offset_top = -711.0
 offset_right = 630.0
 offset_bottom = -688.0
 theme_override_fonts/font = ExtResource("17_16qda")
-text = "v0.0.7"
+text = "v0.1.0"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="AsteroidCatcher" to="AsteroidCatcher" method="_on_body_entered"]
