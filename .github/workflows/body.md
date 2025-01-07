@@ -1,5 +1,6 @@
 # Astrolaser - Release Notes
 
-## Version: v0.0.4
+## Version: v0.0.6
 
-### First game release
+### Minor changes
+- Add version
