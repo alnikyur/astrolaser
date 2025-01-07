@@ -28,6 +28,8 @@ func _on_node_added(node):
 
 func _process(delta):
 	var input_direction = Vector2.ZERO
+
+	# Keyboard input support
 	if Input.is_action_pressed("ui_left"):
 		input_direction.x -= 1
 		$AnimatedSprite2D.play("spaceleft")
@@ -42,7 +44,15 @@ func _process(delta):
 	if Input.is_action_pressed("ui_down"):
 		input_direction.y += 1
 
+	# Joystick input support
+	var joystick_direction = Vector2(
+		Input.get_joy_axis(0, JOY_AXIS_LEFT_X),
+		Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)
+	)
+
+	input_direction += joystick_direction
 	input_direction = input_direction.normalized()
+
 	velocity += input_direction * acceleration * delta
 	if velocity.length() > max_speed:
 		velocity = velocity.normalized() * max_speed
@@ -50,8 +60,9 @@ func _process(delta):
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 	move_and_slide()
 
-	if Input.is_action_just_pressed("ui_select"):
+	if Input.is_action_just_pressed("ui_select") or Input.is_action_just_pressed("joy_fire"):
 		fire()
+
 
 func fire():
 	if current_fire_count > 0:
