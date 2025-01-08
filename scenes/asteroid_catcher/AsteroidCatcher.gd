@@ -49,7 +49,7 @@ func on_death():
 		is_paused = !is_paused
 		get_tree().paused = is_paused
 		pause_menu.visible = is_paused
-		
+		$"../CanvasLayer/Label".visible = true
 
 func _on_body_entered(body):
 	if body.is_in_group("asteroids"):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://d2k4pa50jyk6c"]
+[gd_scene load_steps=34 format=3 uid="uid://d2k4pa50jyk6c"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_818dx"]
 [ext_resource type="Texture2D" uid="uid://dhlv5nvqn63q3" path="res://assets/spaceship/smallfighter0006.png" id="1_beik6"]
@@ -22,6 +22,7 @@
 [ext_resource type="FontFile" uid="uid://b13fn6ov06hds" path="res://assets/fonts/Astron Boy.otf" id="17_16qda"]
 [ext_resource type="PackedScene" uid="uid://d2wq76s8s0a7s" path="res://scenes/ui/health_bar.tscn" id="19_brblq"]
 [ext_resource type="PackedScene" uid="uid://bea2wgh4nvhpu" path="res://scenes/ui/game_menu.tscn" id="20_ll8sj"]
+[ext_resource type="PackedScene" uid="uid://deibdk0ljdamn" path="res://scenes/ui/game_over.tscn" id="23_1bt1s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f2t61"]
 radius = 32.0
@@ -324,6 +325,11 @@ process_mode = 2
 [node name="Control" parent="GameMenu" index="0"]
 visible = false
 
+[node name="CanvasLayer" parent="." instance=ExtResource("23_1bt1s")]
+
+[node name="Label" parent="CanvasLayer" index="0"]
+visible = false
+
 [connection signal="body_entered" from="Spaceship/Area2D" to="Spaceship" method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="HealthPointTimer" to="." method="_on_health_point_timer_timeout"]
@@ -332,3 +338,4 @@ visible = false
 [editable path="ParallaxBackground"]
 [editable path="UI"]
 [editable path="GameMenu"]
+[editable path="CanvasLayer"]
