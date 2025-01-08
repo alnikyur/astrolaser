@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ugbu3o4xwhvm"]
+
+[ext_resource type="Texture2D" uid="uid://d338r36oihumj" path="res://assets/items/health_point.png" id="1_xtd5e"]
+[ext_resource type="Script" path="res://scenes/items/health_point.gd" id="2_7lm1k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g36rl"]
+radius = 24.0
+
+[node name="HealthPoint" type="RigidBody2D" groups=["health"]]
+collision_layer = 4
+collision_mask = 4
+gravity_scale = 0.0
+script = ExtResource("2_7lm1k")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.52588e-05, 0)
+scale = Vector2(0.032, 0.032)
+texture = ExtResource("1_xtd5e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_g36rl")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

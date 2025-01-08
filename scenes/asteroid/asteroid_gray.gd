@@ -1,7 +1,7 @@
 extends RigidBody2D
 
-@export var min_speed: float = 200.0
-@export var max_speed: float = 300.0
+@export var min_speed: float = 150.0
+@export var max_speed: float = 250.0
 @export var min_angle: float = -PI
 @export var max_angle: float = PI
 @export var min_rotation_speed: float = 5

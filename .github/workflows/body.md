@@ -1,6 +1,8 @@
 # Astrolaser - Release Notes
 
-## Version: v0.0.6
+## Version: v0.2.0
 
-### Minor changes
-- Add version
+### Major changes
+- Add camera shake
+- Add health points
+- Add game menu with pause (`esc` button)

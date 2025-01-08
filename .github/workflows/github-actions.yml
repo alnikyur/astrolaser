@@ -41,8 +41,9 @@ jobs:
           body: |
             # Astrolaser - Release Notes
   
-            ## Version: v0.1.0
+            ## Version: v0.2.0
   
-            ### Minor changes
-            - Add fonts
-            - Add asteroid explosion
+            ### Major changes
+            - Add camera shake
+            - Add health points
+            - Add game menu with pause (`esc` button)

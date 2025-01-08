@@ -7,10 +7,15 @@ extends CharacterBody2D
 @onready var shoot_count = $"../ShootCount"
 @onready var score = $"../Score"
 
-
 @export var acceleration: float = 600.0
 @export var max_speed: float = 500.0
 @export var friction: float = 600.0
+
+@export var max_health: int = 100  # Максимальное здоровье
+@export var health_bar_path: NodePath  # Путь к шкале здоровья
+var current_health: int = max_health  # Текущее здоровье
+
+
 
 var max_fire_count = 100
 var current_fire_count = max_fire_count
@@ -19,6 +24,9 @@ var current_score_count = 0
 func _ready():
 	$AnimatedSprite2D.play("idle")
 	get_tree().connect("node_added", Callable(self, "_on_node_added"))
+	var health_bar = get_node_or_null(health_bar_path)
+	if health_bar:
+		health_bar.value = current_health
 
 func _on_node_added(node):
 	if node.is_in_group("asteroids"):
@@ -113,3 +121,19 @@ func add_score_count(amount: int):
 	current_score_count += amount
 	update_score_label()
 	print("Score added: %d, current score: %d" % [amount, current_score_count])
+
+func increase_health(amount: int):
+	# Увеличиваем здоровье, но не превышаем max_health
+	current_health = clamp(current_health + amount, 0, max_health)
+
+	# Обновляем шкалу здоровья
+	var health_bar = get_node_or_null(health_bar_path)
+	if health_bar:
+		health_bar.value = current_health
+		print("Health bar updated to: ", current_health)
+
+func _on_area_2d_body_entered(body):
+	print("Entered body: ", body.name)
+	if body.is_in_group("health"):  # Проверяем, принадлежит ли объект группе health_points
+		body.queue_free()  # Удаляем health_point
+		increase_health(10)

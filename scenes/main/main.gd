@@ -2,16 +2,21 @@ extends Node2D
 
 @export var Asteroid: PackedScene
 @export var AsteroidGray: PackedScene
+@export var AsteroidBigGray: PackedScene
+@export var HealthPoint: PackedScene
 @export var spawn_interval: float = 1
 @export var screen_width: int = 600
 @export var screen_height: int = 800
 @export var asteroid_count: int = 1
 @export var asteroid_gray_count: int = 1
+@export var asteroid_big_gray_count: int = 1
+@export var health_point: int = 1
+@export var pause_menu_path: NodePath
 
 @onready var description = $Description
 @onready var fade_in_out = $FadeInOut
 
-
+var is_paused = false
 var score: int = 10
 
 func _ready():
@@ -22,6 +27,17 @@ func _ready():
 	fade_text_in()
 	await get_tree().create_timer(5.0).timeout
 	fade_text_out()
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		toggle_pause_menu()
+
+func toggle_pause_menu():
+	var pause_menu = get_node(pause_menu_path)
+	if pause_menu:
+		is_paused = !is_paused
+		get_tree().paused = is_paused
+		pause_menu.visible = is_paused
 
 func subtract_score(amount: int):
 	score -= amount
@@ -49,6 +65,13 @@ func _on_timer_timeout():
 		var y_position = -800
 		asteroid_gray.position = Vector2(x_position, y_position)
 
+	for i in range(asteroid_big_gray_count):
+		var asteroid_big_gray = AsteroidBigGray.instantiate()
+		add_child(asteroid_big_gray)
+		
+		var x_position = randf_range(-600, screen_width)
+		var y_position = -800
+		asteroid_big_gray.position = Vector2(x_position, y_position)
 
 func _on_asteroid_catcher_body_entered(body):
 	if body:
@@ -68,3 +91,13 @@ func fade_text_in():
 
 func fade_text_out():
 	fade_in_out.play("fadeout")
+
+
+func _on_health_point_timer_timeout():
+	for i in range(health_point):
+		var health_point = HealthPoint.instantiate()
+		add_child(health_point)
+		
+		var x_position = randf_range(-400, screen_width)
+		var y_position = -800
+		health_point.position = Vector2(x_position, y_position)

@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c82ex534ooq02" path="res://assets/background/Nebula Blue.png" id="5_3buri"]
 
 [node name="ParallaxBackground" type="ParallaxBackground"]
+process_mode = 3
 script = ExtResource("1_cbtvq")
 
 [node name="NebulaAqua-pink" type="Sprite2D" parent="."]
