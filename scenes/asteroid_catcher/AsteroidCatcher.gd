@@ -6,6 +6,7 @@ extends Area2D
 @export var max_health: int = 100
 @export var health_bar_path: NodePath
 @export var camera_path: NodePath
+@export var player_path: NodePath
 
 var current_health: int = max_health
 var is_paused = false
@@ -18,21 +19,28 @@ func _ready():
 	else:
 		print("Health bar not found at path: ", health_bar_path)
 	
+func sync_health():
+	# Получаем обновлённое здоровье от игрока
+	var player = get_node_or_null(player_path)
+	if player:
+		current_health = player.current_health
+		update_health_bar()
+
 func take_damage(amount: int):
 	current_health -= amount
 	current_health = clamp(current_health, 0, max_health)  # Убедимся, что здоровье не меньше 0
+	update_health_bar()
 
+	# Проверяем, если здоровье закончилось
+	if current_health <= 0:
+		on_death()
+
+func update_health_bar():
 	# Обновляем шкалу здоровья
 	var health_bar = get_node_or_null(health_bar_path)
 	if health_bar:
 		health_bar.value = current_health
 		print("Health bar updated to: ", current_health)
-	else:
-		print("Failed to update health bar!")
-
-	# Проверяем, если здоровье закончилось
-	if current_health <= 0:
-		on_death()
 
 func on_death():
 	print("Game Over!")

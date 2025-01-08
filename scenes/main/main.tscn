@@ -284,6 +284,7 @@ game_manager = NodePath("..")
 pause_menu_path = NodePath("../GameMenu/Control")
 health_bar_path = NodePath("../UI/TextureProgressBar")
 camera_path = NodePath("../Camera2D")
+player_path = NodePath("../Spaceship")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AsteroidCatcher"]
 position = Vector2(1, 97)

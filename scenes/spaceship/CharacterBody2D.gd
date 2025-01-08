@@ -136,4 +136,19 @@ func _on_area_2d_body_entered(body):
 	print("Entered body: ", body.name)
 	if body.is_in_group("health"):  # Проверяем, принадлежит ли объект группе health_points
 		body.queue_free()  # Удаляем health_point
-		increase_health(10)
+		restore_health()
+
+func restore_health():
+	current_health = max_health  # Полностью восстанавливаем здоровье
+	update_health_bar()
+	var asteroid_catcher = get_parent().get_node("AsteroidCatcher")  # Укажите правильный путь
+	if asteroid_catcher:
+		asteroid_catcher.sync_health()
+
+
+func update_health_bar():
+	# Обновляем шкалу здоровья
+	var health_bar = get_node_or_null(health_bar_path)
+	if health_bar:
+		health_bar.value = current_health
+		print("Health bar updated to: ", current_health)
