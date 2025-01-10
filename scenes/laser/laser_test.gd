@@ -14,3 +14,6 @@ func _process(delta):
 	
 	if position.y < -800 or position.y > 800 or position.x < -700 or position.x > 700:
 		queue_free()
+
+func _exit_tree():
+	remove_from_group("lasers")

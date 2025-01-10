@@ -73,37 +73,43 @@ func _process(delta):
 
 
 func fire():
-	if current_fire_count > 0:
-		var num_lasers = 1
-		if current_score_count >= 50:
-			num_lasers = 3
-		elif current_score_count >= 20:
-			num_lasers = 2
+	if get_tree().get_nodes_in_group("lasers").size() == 0:  # Проверяем, есть ли лазеры на экране
+		if current_fire_count > 0:
+			var num_lasers = 1
+			if current_score_count >= 50:
+				num_lasers = 3
+			elif current_score_count >= 20:
+				num_lasers = 2
 
-		current_fire_count -= num_lasers
-		update_shots_label()
+			current_fire_count -= num_lasers
+			update_shots_label()
 
-		print("Shots left: ", current_fire_count)
+			print("Shots left: ", current_fire_count)
 
-		if num_lasers == 1 or num_lasers == 3:
-			var center_fire = Fire.instantiate()
-			center_fire.position = position + Vector2(0, -80)
-			get_parent().add_child(center_fire)
+			if num_lasers == 1 or num_lasers == 3:
+				var center_fire = Fire.instantiate()
+				center_fire.position = position + Vector2(0, -80)
+				center_fire.add_to_group("lasers")  # Добавляем лазер в группу
+				get_parent().add_child(center_fire)
 
-		if num_lasers >= 2:
-			var left_fire = Fire.instantiate()
-			left_fire.position = position + Vector2(-20, -80)
-			get_parent().add_child(left_fire)
+			if num_lasers >= 2:
+				var left_fire = Fire.instantiate()
+				left_fire.position = position + Vector2(-20, -80)
+				left_fire.add_to_group("lasers")  # Добавляем лазер в группу
+				get_parent().add_child(left_fire)
 
-		if num_lasers >= 2:
-			var right_fire = Fire.instantiate()
-			right_fire.position = position + Vector2(20, -80)
-			get_parent().add_child(right_fire)
+			if num_lasers >= 2:
+				var right_fire = Fire.instantiate()
+				right_fire.position = position + Vector2(20, -80)
+				right_fire.add_to_group("lasers")  # Добавляем лазер в группу
+				get_parent().add_child(right_fire)
 
-		shoot.play()
+			shoot.play()
+		else:
+			print("No shots left!")
+			laser_empty.play()
 	else:
-		print("No shots left!")
-		laser_empty.play()
+		print("Cannot shoot: lasers still on screen!")
 
 
 func update_shots_label():
